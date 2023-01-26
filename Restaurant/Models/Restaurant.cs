@@ -10,7 +10,7 @@ namespace Restaurant
     {
         private List<Table> tables = new();
 
-        private int managerSpeed = 5;
+        private int managerSlow = 5;
 
         public Restaurant()
         {
@@ -28,9 +28,9 @@ namespace Restaurant
         {
             Console.WriteLine("Hi, wait for table confirm");
 
-            Thread.Sleep(1000 * managerSpeed);
-            var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.isFree);
-            table?.SetState(false);
+            var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free );
+            Thread.Sleep(1000 * managerSlow);
+            table?.SetState(State.Booked);
 
             if (table is null)
             {
@@ -46,9 +46,9 @@ namespace Restaurant
             Console.WriteLine("Hi, we will send a message");
             Task.Run(async () =>
             {
-                var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.isFree);
-                await Task.Delay(1000 * managerSpeed);
-                table?.SetState(false);
+                var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free);
+                await Task.Delay(1000 * managerSlow);
+                table?.SetState(State.Booked);
 
                 if (table is null)
                 {
@@ -60,5 +60,58 @@ namespace Restaurant
                 }
             });
         }
+
+        public void UnBookTable(int tableId)
+        {
+            var table = tables.FirstOrDefault(t => t.Id == tableId);
+            Thread.Sleep(1000 * managerSlow);
+
+            if (table is not null)
+            {
+                if (table.State == State.Booked)
+                {
+                    table.SetState(State.Free);
+                    Console.WriteLine($"Table {table.Id} is free");
+                }
+                else
+                {
+                    Console.WriteLine($"Table {table.Id} already free");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Table is not exist");
+            }
+        }
+
+        public void UnBookTableAsync(int tableId)
+        {
+            Task.Run(async () =>
+            {
+                var table = tables.FirstOrDefault(t => t.Id == tableId);
+                await Task.Delay(1000 * managerSlow);
+
+                if (table is not null)
+                {
+                    if (table.State == State.Booked)
+                    {
+                        table.SetState(State.Free);
+                        Console.WriteLine($"Table {table.Id} is free");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Table {table.Id} already free");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Table is not exist");
+                }
+            });
+
+
+        }
+
+
     }
 }
