@@ -9,7 +9,7 @@ namespace Restaurant
     internal class Restaurant
     {
         private List<Table> tables = new();
-
+        private static readonly object locker = new();
         private int managerSlow = 5;
 
         public Restaurant()
@@ -46,18 +46,22 @@ namespace Restaurant
             Console.WriteLine("Hi, we will send a message");
             Task.Run(async () =>
             {
-                var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free);
                 await Task.Delay(1000 * managerSlow);
-                table?.SetState(State.Booked);
+                lock (locker)
+                {
+                    var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free);
+                    table?.SetState(State.Booked);
+                    if (table is null)
+                    {
+                        Console.WriteLine("MESSAGE: All tables are busy, sorry");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"MESSAGE: OK, table No {table.Id}");
+                    }
 
-                if (table is null)
-                {
-                    Console.WriteLine("MESSAGE: All tables are busy, sorry");
                 }
-                else
-                {
-                    Console.WriteLine($"MESSAGE: OK, table No {table.Id}");
-                }
+
             });
         }
 
