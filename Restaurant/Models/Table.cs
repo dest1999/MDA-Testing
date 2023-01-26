@@ -18,6 +18,7 @@ namespace Restaurant
             this.Id = Id;
             isFree = true;
             SeatsCount = rnd.Next(2, 7);
+            Console.Write($"{SeatsCount} ");//for debug
         }
 
         public bool SetState(bool state)
