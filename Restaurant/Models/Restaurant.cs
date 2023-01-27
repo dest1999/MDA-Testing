@@ -8,9 +8,11 @@ namespace Restaurant
 {
     internal class Restaurant
     {
-        private List<Table> tables = new();
+        private readonly List<Table> tables = new();
         private static readonly object locker = new();
-        private int managerSlow = 5;
+        private readonly int managerSlow = 5;
+        private readonly TimeSpan AutoUnBookTimeSpan = TimeSpan.FromSeconds(20);
+        private bool isAutoUnBookingRunning = false;
 
         public Restaurant()
         {
@@ -35,9 +37,11 @@ namespace Restaurant
             if (table is null)
             {
                 Console.WriteLine("All tables are busy, sorry");
-            } else
+            }
+            else
             {
                 Console.WriteLine($"OK, table No {table.Id}");
+                AutoUnBookTableAsync();
             }
         }
 
@@ -58,6 +62,7 @@ namespace Restaurant
                     else
                     {
                         Console.WriteLine($"MESSAGE: OK, table No {table.Id}");
+                        AutoUnBookTableAsync();
                     }
 
                 }
@@ -116,6 +121,22 @@ namespace Restaurant
 
         }
 
+        private async void AutoUnBookTableAsync()
+        {
+            if (!isAutoUnBookingRunning)
+            {
+                isAutoUnBookingRunning = true;
+                while (true)
+                {
+                    await Task.Delay(AutoUnBookTimeSpan);
+                    foreach (var item in tables)
+                    {
+                        item.SetState(State.Free);
+                    }
+                    Console.WriteLine("Run AutoUnbooking");
+                }
+            }
+        }
 
     }
 }
