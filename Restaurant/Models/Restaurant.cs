@@ -13,6 +13,7 @@ namespace Restaurant
         private readonly int managerSlow = 5;
         private readonly TimeSpan AutoUnBookTimeSpan = TimeSpan.FromSeconds(20);
         private bool isAutoUnBookingRunning = false;
+        //private Notification Notification = new();
 
         public Restaurant()
         {
@@ -28,7 +29,8 @@ namespace Restaurant
 
         public void BookFreeTable(int countOfPersons)
         {
-            Console.WriteLine("Hi, wait for table confirm");
+            Notification.SendNotifyAsync("Hi, wait for table confirm");
+            //Console.WriteLine("Hi, wait for table confirm");
 
             var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free );
             Thread.Sleep(1000 * managerSlow);
@@ -36,18 +38,18 @@ namespace Restaurant
 
             if (table is null)
             {
-                Console.WriteLine("All tables are busy, sorry");
+                Notification.SendNotifyAsync("All tables are busy, sorry");
             }
             else
             {
-                Console.WriteLine($"OK, table No {table.Id}");
+                Notification.SendNotifyAsync($"OK, table No {table.Id}");
                 AutoUnBookTableAsync();
             }
         }
 
         public void BookFreeTableAsync(int countOfPersons)
         {
-            Console.WriteLine("Hi, we will send a message");
+            Notification.SendNotifyAsync("Hi, we will send a message");
             Task.Run(async () =>
             {
                 await Task.Delay(1000 * managerSlow);
@@ -57,11 +59,11 @@ namespace Restaurant
                     table?.SetState(State.Booked);
                     if (table is null)
                     {
-                        Console.WriteLine("MESSAGE: All tables are busy, sorry");
+                        Notification.SendNotifyAsync("MESSAGE: All tables are busy, sorry");
                     }
                     else
                     {
-                        Console.WriteLine($"MESSAGE: OK, table No {table.Id}");
+                        Notification.SendNotifyAsync($"MESSAGE: OK, table No {table.Id}");
                         AutoUnBookTableAsync();
                     }
 
@@ -80,16 +82,16 @@ namespace Restaurant
                 if (table.State == State.Booked)
                 {
                     table.SetState(State.Free);
-                    Console.WriteLine($"Table {table.Id} is free");
+                    Notification.SendNotifyAsync($"Table {table.Id} is free");
                 }
                 else
                 {
-                    Console.WriteLine($"Table {table.Id} already free");
+                    Notification.SendNotifyAsync($"Table {table.Id} already free");
                 }
             }
             else
             {
-                Console.WriteLine("Table is not exist");
+                Notification.SendNotifyAsync("Table is not exist");
             }
         }
 
@@ -105,16 +107,16 @@ namespace Restaurant
                     if (table.State == State.Booked)
                     {
                         table.SetState(State.Free);
-                        Console.WriteLine($"Table {table.Id} is free");
+                        Notification.SendNotifyAsync($"Table {table.Id} is free");
                     }
                     else
                     {
-                        Console.WriteLine($"Table {table.Id} already free");
+                        Notification.SendNotifyAsync($"Table {table.Id} already free");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Table is not exist");
+                    Notification.SendNotifyAsync("Table is not exist");
                 }
             });
 
@@ -133,7 +135,7 @@ namespace Restaurant
                     {
                         item.SetState(State.Free);
                     }
-                    Console.WriteLine("Run AutoUnbooking");
+                    Notification.SendNotifyAsync("Run AutoUnbooking");
                 }
             }
         }
