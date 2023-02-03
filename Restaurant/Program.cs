@@ -4,30 +4,19 @@ namespace Restaurant
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Restaurant restaurant = new(5);
 
             while (true)
             {
-                Console.WriteLine("\n1 - async, 2 - sync");
-                if (!int.TryParse(Console.ReadLine(), out var choice) && choice is not (1 or 2) )
-                {
-                    Console.Write("input 1 or 2: ");
-                    continue;
-                }
+                await Task.Delay(10_000);
+                Console.WriteLine("Бронирование столика, метод Main");
 
                 Stopwatch stopWatch = new();
                 stopWatch.Start();
 
-                if (choice == 1)
-                {
-                    restaurant.BookFreeTableAsync(3);
-                }
-                else
-                {
-                    restaurant.BookFreeTable(3);
-                }
+                restaurant.BookFreeTableAsync(3);
 
                 stopWatch.Stop();
                 var ts = stopWatch.Elapsed;

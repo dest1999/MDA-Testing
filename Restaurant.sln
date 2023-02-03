@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant", "Restaurant\Restaurant.csproj", "{F937E24B-26B0-41A2-B96A-B90DAFB97D22}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DB485E57-0EF4-4242-9799-FBEA1C31116B} = {DB485E57-0EF4-4242-9799-FBEA1C31116B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "Messaging\Messaging.csproj", "{DB485E57-0EF4-4242-9799-FBEA1C31116B}"
 EndProject

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Restaurant
         private readonly int managerSlow = 5;
         private readonly TimeSpan AutoUnBookTimeSpan = TimeSpan.FromSeconds(20);
         private bool isAutoUnBookingRunning = false;
-        //private Notification Notification = new();
+        private Producer producer = new("BookingNotification", "localhost");
 
         public Restaurant()
         {
@@ -30,7 +31,6 @@ namespace Restaurant
         public void BookFreeTable(int countOfPersons)
         {
             Notification.SendNotifyAsync("Hi, wait for table confirm");
-            //Console.WriteLine("Hi, wait for table confirm");
 
             var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free );
             Thread.Sleep(1000 * managerSlow);
@@ -57,13 +57,14 @@ namespace Restaurant
                 {
                     var table = tables.FirstOrDefault(t => t.SeatsCount >= countOfPersons && t.State == State.Free);
                     table?.SetState(State.Booked);
+
                     if (table is null)
                     {
-                        Notification.SendNotifyAsync("MESSAGE: All tables are busy, sorry");
+                        producer.Send("MESSAGE: All tables are busy, sorry");
                     }
                     else
                     {
-                        Notification.SendNotifyAsync($"MESSAGE: OK, table No {table.Id}");
+                        producer.Send($"MESSAGE: OK, table No {table.Id}");
                         AutoUnBookTableAsync();
                     }
 
