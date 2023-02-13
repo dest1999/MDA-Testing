@@ -1,37 +1,38 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Restaurant.Messages;
+using Restaurant.Kitchen.Consumers;
 
-namespace Restaurant.Booking
+namespace Restaurant.Kitchen
 {
-    public static class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
             CreateHostBuilder(args).Build().Run();
         }
 
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddMassTransit(x =>
                     {
+                        x.AddConsumer<KitchenTableBookedConsumer>();
+
                         x.UsingRabbitMq((context, cfg) =>
                         {
                             cfg.ConfigureEndpoints(context);
                         });
                     });
+
+                    services.AddSingleton<Manager>();
+
                     services.AddMassTransitHostedService(true);
-
-                    services.AddTransient<Restaurant>();
-
-                    services.AddHostedService<Worker>();
                 });
     }
 }
