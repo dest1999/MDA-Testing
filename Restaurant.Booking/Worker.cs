@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using MassTransit;
@@ -10,12 +12,10 @@ namespace Restaurant.Booking
     public class Worker : BackgroundService
     {
         private readonly IBus _bus;
-        private readonly Restaurant _restaurant;
 
-        public Worker(IBus bus, Restaurant restaurant)
+        public Worker(IBus bus)
         {
             _bus = bus;
-            _restaurant = restaurant;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -23,12 +23,13 @@ namespace Restaurant.Booking
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(10000, stoppingToken);
+                await Task.Delay(1000, stoppingToken);
                 Console.WriteLine("Привет! Желаете забронировать столик?");
-                var result = await _restaurant.BookFreeTableAsync(1);
-                //забронируем с ответом по смс
-                await _bus.Publish(new TableBooked(NewId.NextGuid(), NewId.NextGuid(), result ?? false),
-                    context => context.Durable = false, stoppingToken);
+
+                var dateTime = DateTime.Now;
+                await _bus.Publish(
+                    (IBookingRequest) new BookingRequest(NewId.NextGuid(), NewId.NextGuid(), null, dateTime),
+                    stoppingToken);
             }
         }
     }
