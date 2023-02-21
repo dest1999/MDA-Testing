@@ -1,8 +1,14 @@
-﻿namespace Restaurant.Booking
+﻿namespace Restaurant.Booking;
+
+public enum TableState
 {
-    public enum TableState
-    {
-        Free = 0, 
-        Booked = 1 
-    }
+    /// <summary>
+    ///     Стол свободен
+    /// </summary>
+    Free = 0,
+
+    /// <summary>
+    ///     Стол занят
+    /// </summary>
+    Booked = 1
 }

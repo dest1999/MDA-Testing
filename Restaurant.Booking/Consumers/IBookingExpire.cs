@@ -1,21 +1,20 @@
 ﻿using System;
 
-namespace Restaurant.Booking.Consumers
+namespace Restaurant.Booking.Consumers;
+
+public interface IBookingExpire
 {
-    public interface IBookingExpire
+    public Guid OrderId { get; }
+}
+
+public class BookingExpire : IBookingExpire
+{
+    private readonly RestaurantBooking _instance;
+
+    public BookingExpire(RestaurantBooking instance)
     {
-        public Guid OrderId { get; }
+        _instance = instance;
     }
 
-    public class BookingExpire : IBookingExpire
-    {
-        private readonly RestaurantBooking _instance;
-        
-        public BookingExpire(RestaurantBooking instance)
-        {
-            _instance = instance;
-        }
-
-        public Guid OrderId => _instance.OrderId;
-    }
+    public Guid OrderId => _instance.OrderId;
 }
