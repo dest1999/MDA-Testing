@@ -1,10 +1,9 @@
-﻿namespace Restaurant.Messages
+﻿namespace Restaurant.Messages;
+
+public enum Dish
 {
-    public enum Dish
-    {
-        Chicken = 0,
-        Pizza = 1,
-        Pasta = 2,
-        Lasagna = 3
-    }
+    Chicken = 0,
+    Pizza = 1,
+    Pasta = 2,
+    Lasagna = 3
 }

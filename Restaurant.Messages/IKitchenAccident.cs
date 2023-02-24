@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace Restaurant.Messages
+namespace Restaurant.Messages;
+
+public interface IKitchenAccident
 {
-    public interface IKitchenAccident
-    {
-        public Guid OrderId { get; }
-        
-        public Dish Dish { get; }
-    }
+    public Guid OrderId { get; }
+
+    public Dish Dish { get; }
 }
