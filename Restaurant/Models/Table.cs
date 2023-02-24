@@ -6,27 +6,30 @@ using System.Threading.Tasks;
 
 namespace Restaurant
 {
+
+
     internal class Table
     {
         private static Random rnd = new Random();
-        public bool isFree { get; private set; }
+        public State State { get; private set; }
         public int Id { get; private set; }
         public int SeatsCount { get; private set; }
 
         public Table(int Id)
         {
             this.Id = Id;
-            isFree = true;
+            State = State.Free;
             SeatsCount = rnd.Next(2, 7);
+            Console.Write($"{SeatsCount} ");//for debug
         }
 
-        public bool SetState(bool state)
+        public bool SetState(State state)
         {
-            if (state == isFree)
+            if (state == State)
             {
                 return false;
             }
-            isFree = state;
+            State = state;
             return true;
         }
 
