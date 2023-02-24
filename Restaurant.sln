@@ -3,17 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant", "Restaurant\Restaurant.csproj", "{F937E24B-26B0-41A2-B96A-B90DAFB97D22}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B} = {DB485E57-0EF4-4242-9799-FBEA1C31116B}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Booking", "Restaurant\Restaurant.Booking.csproj", "{F937E24B-26B0-41A2-B96A-B90DAFB97D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "Messaging\Messaging.csproj", "{DB485E57-0EF4-4242-9799-FBEA1C31116B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Notification", "RestaurantNotification\Restaurant.Notification.csproj", "{526E1941-A0D7-43BA-BA83-A90082607EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantNotification", "RestaurantNotification\RestaurantNotification.csproj", "{526E1941-A0D7-43BA-BA83-A90082607EAF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B} = {DB485E57-0EF4-4242-9799-FBEA1C31116B}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Kitchen", "Restaurant.Kitchen\Restaurant.Kitchen.csproj", "{07923D02-06DE-47CB-830F-63C2BC3429A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Messages", "Restaurant.Messages\Restaurant.Messages.csproj", "{D169E9C9-87D5-43BE-B906-CA87FEB997E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +21,18 @@ Global
 		{F937E24B-26B0-41A2-B96A-B90DAFB97D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F937E24B-26B0-41A2-B96A-B90DAFB97D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F937E24B-26B0-41A2-B96A-B90DAFB97D22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB485E57-0EF4-4242-9799-FBEA1C31116B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{526E1941-A0D7-43BA-BA83-A90082607EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{526E1941-A0D7-43BA-BA83-A90082607EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{526E1941-A0D7-43BA-BA83-A90082607EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{526E1941-A0D7-43BA-BA83-A90082607EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07923D02-06DE-47CB-830F-63C2BC3429A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07923D02-06DE-47CB-830F-63C2BC3429A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07923D02-06DE-47CB-830F-63C2BC3429A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07923D02-06DE-47CB-830F-63C2BC3429A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D169E9C9-87D5-43BE-B906-CA87FEB997E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D169E9C9-87D5-43BE-B906-CA87FEB997E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D169E9C9-87D5-43BE-B906-CA87FEB997E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D169E9C9-87D5-43BE-B906-CA87FEB997E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
